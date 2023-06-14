@@ -1,5 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
