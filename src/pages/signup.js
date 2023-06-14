@@ -1,22 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
-import { useForm } from "react-hook-form";
-import { registerValidate } from "../../utils/validate";
 import useSignup from "../hooks/useSignup";
 
 const signup = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(registerValidate) });
-  const { onSubmit } = useSignup();
-  const { data: session } = useSession();
-  const router = useRouter();
+  const { onSubmit, session, router, register, handleSubmit, errors } =
+    useSignup();
   if (session) {
     router.push("/");
   }
@@ -114,11 +106,12 @@ const signup = () => {
                   </form>
                 </div>
                 <div className="order-first hidden w-full lg:block bg-cover h-[420px]">
-                  <img
+                  <Image
                     className="object-cover h-full bg-cover rounded-l-lg"
                     src="https://img.freepik.com/premium-photo/books-library-illustration-generative-aixa_115919-5871.jpg?w=2000"
                     alt="books"
-                    height="420px"
+                    height={420}
+                    width={300}
                   />
                 </div>
               </div>

@@ -1,6 +1,10 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { registerValidate } from "../../utils/validate";
 
 const useSignup = () => {
   const router = useRouter();
@@ -23,8 +27,21 @@ const useSignup = () => {
     }
   };
 
+  const { data: session } = useSession();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(registerValidate) });
+
   return {
     onSubmit,
+    session,
+    router,
+    register,
+    handleSubmit,
+    errors,
   };
 };
 

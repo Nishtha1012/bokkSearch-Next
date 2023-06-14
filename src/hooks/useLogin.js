@@ -1,6 +1,9 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginValidate } from "../../utils/validate";
 const useLogin = () => {
   const router = useRouter();
   const onSubmit = async (data) => {
@@ -24,8 +27,24 @@ const useLogin = () => {
       });
     }
   };
+
+  const { data: session } = useSession();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(loginValidate),
+  });
+
   return {
     onSubmit,
+    session,
+    register,
+    handleSubmit,
+    errors,
+    router,
   };
 };
 

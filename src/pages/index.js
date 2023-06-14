@@ -5,11 +5,11 @@ import _ from "lodash";
 import { GET_ALL_BOOKS, GET_BOOKS_BY_FILTER } from "../gql/queries";
 import BookCard from "../components/BookCard";
 import Paginate from "../components/Paginate";
-import useIndex from "../hooks/useIndex";
 import Filter from "../components/filter";
 import BackToTop from "../components/BackToTop";
-import ClearFilter from "../components/ClearFilter.js";
+import ClearFilter from "../components/ClearFilter.js.js";
 import SearchBar from "../components/SearchBar";
+import useHome from "../hooks/useHome";
 const home = ({ books }) => {
   const {
     status,
@@ -23,7 +23,7 @@ const home = ({ books }) => {
     setshowFilters,
     isFilter,
     clearfilter,
-  } = useIndex();
+  } = useHome();
   if (status === "unauthenticated") {
     router.push("/login");
   }

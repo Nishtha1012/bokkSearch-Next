@@ -7,20 +7,12 @@ import { loginValidate } from "../../utils/validate";
 import useLogin from "../hooks/useLogin";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(loginValidate),
-  });
+  const { onSubmit, session, register, handleSubmit, errors, router } =
+    useLogin();
 
-  const { onSubmit } = useLogin();
-
-  const { data: session } = useSession();
-  const router = useRouter();
   if (session) {
     router.push("/");
   }
@@ -100,11 +92,12 @@ const login = () => {
                   </form>
                 </div>
                 <div className="order-first hidden w-full lg:block bg-cover h-[420px]">
-                  <img
+                  <Image
                     className="object-cover h-full bg-cover rounded-l-lg"
                     src="https://img.freepik.com/premium-photo/books-library-illustration-generative-aixa_115919-5871.jpg?w=2000"
                     alt="books"
-                    height="420px"
+                    height={420}
+                    width={300}
                   />
                 </div>
               </div>

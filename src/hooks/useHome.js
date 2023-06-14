@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const useIndex = () => {
+const useHome = () => {
   const [searchQuery, setsearchQuery] = useState();
 
   const onSubmit = (data) => {
@@ -81,4 +81,4 @@ const useIndex = () => {
   };
 };
 
-export default useIndex;
+export default useHome;
