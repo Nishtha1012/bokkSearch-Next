@@ -11,10 +11,13 @@ const useSignup = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const result = await axios.post("/api/auth/signup", data);
+      const result = await axios.post(
+        "https://bokk-search-next.vercel.app/api/auth/signup",
+        data
+      );
       console.log("result", result);
       if (result.status === 200) {
-        router.push("http://localhost:3000/login");
+        router.push("https://bokk-search-next.vercel.app/login");
         toast.success(result.data.message, {
           position: toast.POSITION.TOP_RIGHT,
         });

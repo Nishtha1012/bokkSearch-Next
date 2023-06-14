@@ -1,12 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { loginValidate } from "../../utils/validate";
 import useLogin from "../hooks/useLogin";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import Image from "next/image";
 
 const login = () => {

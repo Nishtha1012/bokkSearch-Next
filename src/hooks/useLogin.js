@@ -12,7 +12,7 @@ const useLogin = () => {
       redirect: false,
       email: data.email,
       password: data.password,
-      callbackUrl: "http://localhost:3000/",
+      callbackUrl: "https://bokk-search-next.vercel.app",
     });
 
     console.log(result);
