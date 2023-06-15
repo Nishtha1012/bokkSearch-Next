@@ -12,14 +12,41 @@ import { useRouter } from "next/router";
 import { CircularProgress } from "@mui/material";
 
 function MyApp({ Component, pageProps }) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const start = () => {
+      console.log("start");
+      setLoading(true);
+    };
+    const end = () => {
+      console.log("finished");
+      setLoading(false);
+    };
+    router.events.on("routeChangeStart", start);
+    router.events.on("routeChangeError", end);
+    router.events.on("routeChangeComplete", end);
+    return () => {
+      router.events.off("routeChangeStart", start);
+      router.events.off("routeChangeComplete", end);
+      router.events.off("routeChangeError", end);
+    };
+  }, []);
   return (
     <>
       <SessionProvider session={pageProps.session}>
         <Provider store={store}>
           <ApolloProvider client={client}>
             <Header />
-            <Component {...pageProps} />
 
+            {loading ? (
+              <div className="mx-auto flex items-center justify-center mt-5">
+                <CircularProgress className="mx-auto" />
+              </div>
+            ) : (
+              <Component {...pageProps} />
+            )}
             <ToastContainer />
           </ApolloProvider>
         </Provider>

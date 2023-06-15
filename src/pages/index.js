@@ -10,7 +10,6 @@ import BackToTop from "../components/BackToTop";
 import ClearFilter from "../components/ClearFilter.js.js";
 import SearchBar from "../components/SearchBar";
 import useHome from "../hooks/useHome";
-import { CircularProgress } from "@mui/material";
 const home = ({ books }) => {
   const {
     status,
@@ -85,10 +84,6 @@ const home = ({ books }) => {
 
           <BackToTop />
         </>
-      ) : loading ? (
-        <div className="mx-auto text-center flex justify-center items-center">
-          <CircularProgress className="mx-auto" />
-        </div>
       ) : (
         <h3 className="text-center mt-5">No Books Found...</h3>
       )}

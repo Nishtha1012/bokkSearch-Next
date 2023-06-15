@@ -19,7 +19,7 @@ const bookId = ({ book }) => {
           </Head>
           <section className="text-gray-700 body-font overflow-hidden bg-white">
             <div className="container px-5 pt-10 mx-auto">
-              <div className="lg:w-4/5 mx-auto flex">
+              <div className="lg:w-4/5 mx-auto flex max-sm:flex-col">
                 <div className="sticky mt-8 me-10 max-sm:mx-auto max-sm:mt-0">
                   <Image
                     src={
