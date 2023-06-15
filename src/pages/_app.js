@@ -7,6 +7,9 @@ import store from "../store/store";
 import { ApolloProvider } from "@apollo/client";
 import client from "../gql/apolloclient";
 import Header from "../components/Header";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { CircularProgress } from "@mui/material";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -16,6 +19,7 @@ function MyApp({ Component, pageProps }) {
           <ApolloProvider client={client}>
             <Header />
             <Component {...pageProps} />
+
             <ToastContainer />
           </ApolloProvider>
         </Provider>

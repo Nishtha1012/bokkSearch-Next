@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import client from "../gql/apolloclient";
 import _ from "lodash";
 import { GET_ALL_BOOKS, GET_BOOKS_BY_FILTER } from "../gql/queries";
@@ -10,6 +10,7 @@ import BackToTop from "../components/BackToTop";
 import ClearFilter from "../components/ClearFilter.js.js";
 import SearchBar from "../components/SearchBar";
 import useHome from "../hooks/useHome";
+import { CircularProgress } from "@mui/material";
 const home = ({ books }) => {
   const {
     status,
@@ -27,6 +28,27 @@ const home = ({ books }) => {
   if (status === "unauthenticated") {
     router.push("/login");
   }
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const start = () => {
+      console.log("start");
+      setLoading(true);
+    };
+    const end = () => {
+      console.log("finished");
+      setLoading(false);
+    };
+    router.events.on("routeChangeStart", start);
+    router.events.on("routeChangeError", end);
+    router.events.on("routeChangeComplete", end);
+    return () => {
+      router.events.off("routeChangeStart", start);
+      router.events.off("routeChangeComplete", end);
+      router.events.off("routeChangeError", end);
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -53,7 +75,7 @@ const home = ({ books }) => {
 
           <div className="grid grid-cols-4 mx-5 max-md:grid-cols-2 max-sm:grid-cols-1">
             {books.map((book, index) => (
-              <BookCard book={book} key={index} />
+              <BookCard book={book} key={index} loading={loading} />
             ))}
           </div>
 
@@ -63,6 +85,10 @@ const home = ({ books }) => {
 
           <BackToTop />
         </>
+      ) : loading ? (
+        <div className="mx-auto text-center flex justify-center items-center">
+          <CircularProgress className="mx-auto" />
+        </div>
       ) : (
         <h3 className="text-center mt-5">No Books Found...</h3>
       )}
