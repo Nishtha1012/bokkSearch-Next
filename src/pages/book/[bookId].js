@@ -5,9 +5,16 @@ import _ from "lodash";
 import ReactStars from "react-rating-stars-component";
 import Image from "next/image";
 import Head from "next/head";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const bookId = ({ book }) => {
   const [readMore, setreadMore] = useState(false);
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  if (status === "unauthenticated") {
+    router.push("/login");
+  }
   return (
     <>
       {_.size(book) > 0 && (
